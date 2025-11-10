@@ -1,19 +1,50 @@
 package puj.ads.proyectocatalogo.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import java.util.Objects;
 
-@Entity
-@Table(name = "categoria")
-@Data
+/**
+ * Entidad simple para representar categorías sin depender de JPA.
+ */
 public class Categoria {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_categoria;
-
-    @Column(nullable = false, unique = true)
     private String nombre;
-
-    @Column(columnDefinition = "TEXT")
     private String descripcion;
+
+    public Integer getId_categoria() {
+        return id_categoria;
+    }
+
+    public void setId_categoria(Integer id_categoria) {
+        this.id_categoria = id_categoria;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+        Categoria categoria = (Categoria) o;
+        return Objects.equals(id_categoria, categoria.id_categoria) &&
+                Objects.equals(nombre, categoria.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_categoria, nombre);
+    }
 }
