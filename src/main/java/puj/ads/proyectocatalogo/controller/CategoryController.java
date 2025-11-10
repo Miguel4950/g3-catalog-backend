@@ -30,9 +30,11 @@ public class CategoryController {
         return categoriaRepo.findAll();
     }
 
+    // Busca libros por ID de categoría (INT)
     @GetMapping("/{id}/books")
     public List<Book> getBooksByCategoryId(@PathVariable("id") int id) {
-        return bookRepo.findByIdCategoria(id);
+        // CORRECCIÓN AQUÍ: findByIdCategoria -> findById_categoria
+        return bookRepo.findById_categoria(id);
     }
 
     @PostMapping
