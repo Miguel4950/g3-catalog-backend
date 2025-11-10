@@ -25,5 +25,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             Pageable pageable
     );
     
-    List<Book> findByIdCategoria(Integer idCategoria);
+    // CORRECCIÓN AQUÍ: findByIdCategoria -> findById_categoria
+    List<Book> findById_categoria(Integer idCategoria);
 }
