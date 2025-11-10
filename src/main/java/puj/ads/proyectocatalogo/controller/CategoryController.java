@@ -33,8 +33,8 @@ public class CategoryController {
     // Busca libros por ID de categoría (INT)
     @GetMapping("/{id}/books")
     public List<Book> getBooksByCategoryId(@PathVariable("id") int id) {
-        // CORRECCIÓN AQUÍ: findByIdCategoria -> findById_categoria
-        return bookRepo.findById_categoria(id);
+        // CORRECCIÓN AQUÍ: findById_categoria -> findByIdCategoria
+        return bookRepo.findByIdCategoria(id);
     }
 
     @PostMapping
