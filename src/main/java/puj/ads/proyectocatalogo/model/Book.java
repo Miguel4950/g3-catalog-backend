@@ -4,40 +4,38 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "libro") // Nombre de la tabla de G1
-@Data // Lombok para Getters/Setters
+@Table(name = "libro")
+@Data
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_libro; // Coincide con G1
+    private Integer id_libro;
 
     @Column(nullable = false, unique = true)
-    private String isbn; // Coincide con G1
+    private String isbn;
 
     @Column(nullable = false)
-    private String titulo; // Coincide con G1
+    private String titulo;
 
     @Column(nullable = false)
-    private String autor; // Coincide con G1
+    private String autor;
 
-    private String editorial; // Coincide con G1
+    private String editorial;
 
-    private String ano_publicacion; // Coincide con G1 (VARCHAR)
+    private String ano_publicacion; // G1 lo definió como VARCHAR
 
     @Column(nullable = false)
-    private Integer id_categoria; // Coincide con G1
+    private Integer id_categoria; // G1 usa INT
 
     @Column(columnDefinition = "TEXT")
-    private String descripcion; // Coincide con G1
+    private String descripcion;
 
-    private String portada_url; // Coincide con G1
-
-    @Column(nullable = false)
-    private Integer cantidad_total; // Coincide con G1
+    private String portada_url;
 
     @Column(nullable = false)
-    private Integer cantidad_disponible; // Coincide con G1
+    private Integer cantidad_total;
 
-    // Se omiten 'tags', 'idioma', 'prestamosCount' de G3 porque no están en la BD de G1
+    @Column(nullable = false)
+    private Integer cantidad_disponible;
 }
