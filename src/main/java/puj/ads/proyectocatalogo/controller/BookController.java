@@ -20,7 +20,7 @@ public class BookController {
     @GetMapping
     public PagedResponse<Book> search(
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) Boolean available,
             @RequestParam(defaultValue = "title") String sortBy,
             @RequestParam(defaultValue = "0") int page,
@@ -30,7 +30,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book getById(@PathVariable Long id) {
+    public Book getById(@PathVariable Integer id) {
         return bookService.getBook(id);
     }
 
@@ -42,24 +42,24 @@ public class BookController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('BIBLIOTECARIO','ADMIN')")
-    public Book updateBook(@PathVariable Long id, @RequestBody BookDTO dto) {
+    public Book updateBook(@PathVariable Integer id, @RequestBody BookDTO dto) {
         return bookService.updateBook(id, dto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteBook(@PathVariable Long id) {
+    public void deleteBook(@PathVariable Integer id) {
         bookService.deleteBook(id);
     }
 
     @PutMapping("/{id}/availability")
     @PreAuthorize("hasAnyRole('BIBLIOTECARIO','ADMIN')")
-    public void updateAvailability(@PathVariable Long id, @RequestParam int change) {
+    public void updateAvailability(@PathVariable Integer id, @RequestParam int change) {
         bookService.updateAvailability(id, change);
     }
 
     @GetMapping("/{id}/stats")
-    public BookStatistics stats(@PathVariable Long id) {
+    public BookStatistics stats(@PathVariable Integer id) {
         return bookService.getStatistics(id);
     }
 

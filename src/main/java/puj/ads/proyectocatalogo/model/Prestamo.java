@@ -21,7 +21,7 @@ public class Prestamo {
     private Integer usuarioId;
 
     @Column(name = "id_libro")
-    private Long libroId;
+    private Integer libroId;
 
     @Column(name = "id_estado_prestamo")
     private Integer estadoId;

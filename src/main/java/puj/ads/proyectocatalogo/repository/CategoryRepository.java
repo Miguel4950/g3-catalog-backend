@@ -5,6 +5,6 @@ import puj.ads.proyectocatalogo.model.Category;
 
 import java.util.Optional;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Optional<Category> findByNombreIgnoreCase(String nombre);
 }

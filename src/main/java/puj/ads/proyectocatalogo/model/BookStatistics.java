@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 @Builder
 public class BookStatistics {
-    Long bookId;
+    Integer bookId;
     Long prestamosActivos;
     Long prestamosVencidos;
     Integer cantidadTotal;

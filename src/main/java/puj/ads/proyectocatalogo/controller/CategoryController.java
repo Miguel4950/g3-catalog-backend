@@ -31,7 +31,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Category rename(@PathVariable Long id, @RequestBody Map<String, String> body) {
+    public Category rename(@PathVariable Integer id, @RequestBody Map<String, String> body) {
         String nuevoNombre = body.get("name");
         if (nuevoNombre == null || nuevoNombre.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");

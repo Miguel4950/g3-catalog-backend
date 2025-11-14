@@ -27,7 +27,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public Category rename(Long id, String nuevoNombre) {
+    public Category rename(Integer id, String nuevoNombre) {
         Category cat = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
         cat.setNombre(nuevoNombre);

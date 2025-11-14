@@ -19,7 +19,7 @@ public class BookDTO {
     private String isbn;
 
     @NotNull
-    private Long categoriaId;
+    private Integer categoriaId;
 
     private String editorial;
     private String descripcion;

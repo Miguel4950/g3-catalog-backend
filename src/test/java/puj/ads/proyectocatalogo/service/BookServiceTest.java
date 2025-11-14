@@ -48,14 +48,14 @@ class BookServiceTest {
     @BeforeEach
     void setUp() {
         category = new Category();
-        category.setId(10L);
+        category.setId(10);
         category.setNombre("Programación");
 
         dto = new BookDTO();
         dto.setTitulo("Clean Code");
         dto.setAutor("Robert Martin");
         dto.setIsbn("9780132350884");
-        dto.setCategoriaId(10L);
+        dto.setCategoriaId(10);
         dto.setCantidadTotal(5);
         dto.setCantidadDisponible(10); // se debe recortar a 5
     }
@@ -63,7 +63,7 @@ class BookServiceTest {
     @Test
     void addBook_deberiaNormalizarDisponibilidad_yPersistir() {
         when(bookRepository.existsByIsbn(anyString())).thenReturn(false);
-        when(categoryRepository.findById(10L)).thenReturn(Optional.of(category));
+        when(categoryRepository.findById(10)).thenReturn(Optional.of(category));
         when(bookRepository.save(any(Book.class))).thenAnswer(inv -> inv.getArgument(0));
 
         Book saved = bookService.addBook(dto);
@@ -90,25 +90,25 @@ class BookServiceTest {
 
     @Test
     void deleteBook_conPrestamosActivos_lanzaExcepcion() {
-        when(prestamoRepository.existsByLibroIdAndEstadoIdIn(eq(9L), anySet())).thenReturn(true);
+        when(prestamoRepository.existsByLibroIdAndEstadoIdIn(eq(9), anySet())).thenReturn(true);
 
-        assertThatThrownBy(() -> bookService.deleteBook(9L))
+        assertThatThrownBy(() -> bookService.deleteBook(9))
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting("statusCode")
                 .isEqualTo(HttpStatus.CONFLICT);
 
-        verify(bookRepository, never()).deleteById(anyLong());
+        verify(bookRepository, never()).deleteById(anyInt());
     }
 
     @Test
     void updateAvailability_clampEntreCeroYTotal() {
         Book book = new Book();
-        book.setId(7L);
+        book.setId(7);
         book.setCantidadTotal(3);
         book.setCantidadDisponible(1);
-        when(bookRepository.findById(7L)).thenReturn(Optional.of(book));
+        when(bookRepository.findById(7)).thenReturn(Optional.of(book));
 
-        bookService.updateAvailability(7L, -5);
+        bookService.updateAvailability(7, -5);
 
         ArgumentCaptor<Book> captor = ArgumentCaptor.forClass(Book.class);
         verify(bookRepository).save(captor.capture());
@@ -118,14 +118,14 @@ class BookServiceTest {
     @Test
     void getStatistics_retornaMetricas() {
         Book book = new Book();
-        book.setId(8L);
+        book.setId(8);
         book.setCantidadTotal(4);
         book.setCantidadDisponible(2);
-        when(bookRepository.findById(8L)).thenReturn(Optional.of(book));
-        when(prestamoRepository.countActivos(8L)).thenReturn(3L);
-        when(prestamoRepository.countVencidos(8L)).thenReturn(1L);
+        when(bookRepository.findById(8)).thenReturn(Optional.of(book));
+        when(prestamoRepository.countActivos(8)).thenReturn(3L);
+        when(prestamoRepository.countVencidos(8)).thenReturn(1L);
 
-        BookStatistics stats = bookService.getStatistics(8L);
+        BookStatistics stats = bookService.getStatistics(8);
 
         assertThat(stats.getPrestamosActivos()).isEqualTo(3);
         assertThat(stats.getPrestamosVencidos()).isEqualTo(1);

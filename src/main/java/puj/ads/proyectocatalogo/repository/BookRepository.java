@@ -9,7 +9,7 @@ import puj.ads.proyectocatalogo.model.Book;
 
 import java.util.Optional;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
     @Query("""
         SELECT b FROM Book b
@@ -21,7 +21,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                                OR (:available = false AND b.cantidadDisponible = 0))
         """)
     Page<Book> search(@Param("search") String search,
-                      @Param("categoryId") Long categoryId,
+                      @Param("categoryId") Integer categoryId,
                       @Param("available") Boolean available,
                       Pageable pageable);
 

@@ -8,10 +8,10 @@ import puj.ads.proyectocatalogo.model.Prestamo;
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
 
     @Query("SELECT COUNT(p) FROM Prestamo p WHERE p.libroId = :bookId AND p.estadoId = 2")
-    long countActivos(@Param("bookId") Long bookId);
+    long countActivos(@Param("bookId") Integer bookId);
 
     @Query("SELECT COUNT(p) FROM Prestamo p WHERE p.libroId = :bookId AND p.estadoId = 4")
-    long countVencidos(@Param("bookId") Long bookId);
+    long countVencidos(@Param("bookId") Integer bookId);
 
-    boolean existsByLibroIdAndEstadoIdIn(Long bookId, Iterable<Integer> estados);
+    boolean existsByLibroIdAndEstadoIdIn(Integer bookId, Iterable<Integer> estados);
 }

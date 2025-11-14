@@ -33,7 +33,7 @@ public class BookService {
     private final CategoryRepository categoryRepository;
     private final PrestamoRepository prestamoRepository;
 
-    public PagedResponse<Book> search(String search, Long categoryId, Boolean available,
+    public PagedResponse<Book> search(String search, Integer categoryId, Boolean available,
                                       String sortBy, int page, int size) {
         Pageable pageable = PageRequest.of(Math.max(0, page), Math.max(1, size), resolveSort(sortBy));
         Page<Book> result = bookRepository.search(normalize(search), categoryId, available, pageable);
@@ -46,7 +46,7 @@ public class BookService {
                 .build();
     }
 
-    public Book getBook(Long id) {
+    public Book getBook(Integer id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
     }
@@ -65,7 +65,7 @@ public class BookService {
     }
 
     @Transactional
-    public Book updateBook(Long id, BookDTO dto) {
+    public Book updateBook(Integer id, BookDTO dto) {
         Book existing = bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
 
@@ -88,7 +88,7 @@ public class BookService {
     }
 
     @Transactional
-    public void deleteBook(Long id) {
+    public void deleteBook(Integer id) {
         if (prestamoRepository.existsByLibroIdAndEstadoIdIn(id, ESTADOS_BLOQUEO)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede eliminar porque el libro tiene préstamos activos");
         }
@@ -96,7 +96,7 @@ public class BookService {
     }
 
     @Transactional
-    public void updateAvailability(Long id, int change) {
+    public void updateAvailability(Integer id, int change) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
         int nuevaDisponibilidad = Math.max(0,
@@ -105,7 +105,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public BookStatistics getStatistics(Long id) {
+    public BookStatistics getStatistics(Integer id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado"));
         return BookStatistics.builder()
@@ -135,7 +135,7 @@ public class BookService {
         return book;
     }
 
-    private Category resolveCategory(Long categoryId) {
+    private Category resolveCategory(Integer categoryId) {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
     }
