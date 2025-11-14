@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "b76f2fdb-90d5-4702-a0a6-adf2611c70da",
+		"name": "Proyecto Grupo 3 - Catalogo",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49916323",
+		"_collection_link": "https://mariannecoy06-7050389.postman.co/workspace/Marianne-Coy-Rocha's-Workspace~e1bd308f-c5f2-40b1-8d83-1dd2fb816363/collection/49916323-b76f2fdb-90d5-4702-a0a6-adf2611c70da?action=share&source=collection_link&creator=49916323"
+	},
+	"item": [
+		{
+			"name": "Listar Libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books?search=historia&page=0&limit=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "historia"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Libro por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/fa262a41-b419-4f9c-b59a-836f2b4790d6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"fa262a41-b419-4f9c-b59a-836f2b4790d6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Libro populares",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/popular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"popular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disponibilidad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/c509e2c2-bd5c-45d0-8821-229a774c90f5/availability",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"c509e2c2-bd5c-45d0-8821-229a774c90f5",
+						"availability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Libro (Bibliotecario)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"999-888777\",\r\n  \"titulo\": \"Introducción a la programación\",\r\n  \"autor\": \"Juan Pérez\",\r\n  \"editorial\": \"Javeriana Press\",\r\n  \"anioPublicacion\": 2023,\r\n  \"categoria\": \"programación\",\r\n  \"descripcion\": \"Libro de fundamentos de programación en Java\",\r\n  \"idioma\": \"Español\",\r\n  \"cantidadTotal\": 5,\r\n  \"cantidadDisponible\": 5,\r\n  \"tags\": \"programación,java\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar libro (Bibliotecario)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Introducción a la programación\",\r\n  \"cantidadDisponible\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books/999-888777",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"999-888777"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar libro (Admin)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/LIB-1\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"LIB-1\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Categorias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar por categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/categories/Matemáticas/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categories",
+						"Matemáticas",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Categoria (Admin)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Nuevas Ciencias\",\r\n  \"descripcion\": \"Categoría creada por admin\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/categories\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categories\n"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
