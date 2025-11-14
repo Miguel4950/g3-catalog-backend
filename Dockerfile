@@ -4,7 +4,7 @@ COPY mvnw mvnw.cmd pom.xml ./
 COPY .mvn .mvn
 RUN chmod +x mvnw && ./mvnw -q dependency:go-offline
 COPY src src
-RUN ./mvnw -q package -DskipTests
+RUN ./mvnw -q package -DskipTests && rm -f target/original-*.jar
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
